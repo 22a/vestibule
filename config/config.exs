@@ -32,11 +32,10 @@ config :coherence,
   repo: Vestibule.Repo,
   module: Vestibule,
   logged_out_url: "/",
-  email_from_name: "Your Name",
-  email_from_email: "yourname@example.com",
+  email_from_name: "Vestibule",
+  email_from_email: "admin@destroymyfyp.com",
   opts: [:authenticatable, :recoverable, :lockable, :trackable, :unlockable_with_token, :confirmable, :registerable]
 
 config :coherence, Vestibule.Coherence.Mailer,
-  adapter: Swoosh.Adapters.Sendgrid,
-  api_key: "your api key here"
+  adapter: Swoosh.Adapters.Local
 # %% End Coherence Configuration %%

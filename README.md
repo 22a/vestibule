@@ -9,6 +9,8 @@ To start your Phoenix app:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+Outgoing mail is trapped because spam filters suck and getting email through them is something I don't want to devote time to right now, visit [`/dev/mailer`](http://localhost:4000/dev/mailer)
+
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
 ## Learn more
