@@ -1,0 +1,7 @@
+<h2>Edit problem</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: problem_path(@conn, :update, @problem),
+                        contests: @contests %>
+
+<%= link "Back", to: problem_path(@conn, :index) %>

@@ -1,0 +1,53 @@
+<h2>Show problem</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @problem.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @problem.description %>
+  </li>
+
+  <li>
+    <strong>Test input:</strong>
+    <%= @problem.test_input %>
+  </li>
+
+  <li>
+    <strong>Expected output:</strong>
+    <%= @problem.expected_output %>
+  </li>
+
+  <li>
+    <strong>Time limit:</strong>
+    <%= @problem.time_limit %>
+  </li>
+
+  <li>
+    <strong>Memory limit:</strong>
+    <%= @problem.memory_limit %>
+  </li>
+
+  <li>
+    <strong>Output limit:</strong>
+    <%= @problem.output_limit %>
+  </li>
+
+  <li>
+    <strong>Filesize limit:</strong>
+    <%= @problem.filesize_limit %>
+  </li>
+
+  <li>
+    <strong>Contest:</strong>
+    <%= link(@problem.contest_id, to: contest_path(@conn, :show, @problem.contest_id)) %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: problem_path(@conn, :edit, @problem) %>
+<%= link "Back", to: problem_path(@conn, :index) %>

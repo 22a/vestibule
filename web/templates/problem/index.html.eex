@@ -1,0 +1,42 @@
+<h2>Listing problems</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Test input</th>
+      <th>Expected output</th>
+      <th>Time limit</th>
+      <th>Memory limit</th>
+      <th>Output limit</th>
+      <th>Filesize limit</th>
+      <th>Contest</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for problem <- @problems do %>
+    <tr>
+      <td><%= problem.name %></td>
+      <td><%= problem.description %></td>
+      <td><%= problem.test_input %></td>
+      <td><%= problem.expected_output %></td>
+      <td><%= problem.time_limit %></td>
+      <td><%= problem.memory_limit %></td>
+      <td><%= problem.output_limit %></td>
+      <td><%= problem.filesize_limit %></td>
+      <td><%= link(problem.contest_id, to: contest_path(@conn, :show, problem.contest_id)) %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: problem_path(@conn, :show, problem), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: problem_path(@conn, :edit, problem), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: problem_path(@conn, :delete, problem), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New problem", to: problem_path(@conn, :new) %>

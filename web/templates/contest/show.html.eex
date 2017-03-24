@@ -1,0 +1,59 @@
+<h2>Show contest</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @contest.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @contest.description %>
+  </li>
+
+  <li>
+    <strong>Activate time:</strong>
+    <%= @contest.activate_time %>
+  </li>
+
+  <li>
+    <strong>Start time:</strong>
+    <%= @contest.start_time %>
+  </li>
+
+  <li>
+    <strong>Freeze time:</strong>
+    <%= @contest.freeze_time %>
+  </li>
+
+  <li>
+    <strong>End time:</strong>
+    <%= @contest.end_time %>
+  </li>
+
+  <li>
+    <strong>Thaw time:</strong>
+    <%= @contest.thaw_time %>
+  </li>
+
+  <li>
+    <strong>Deactivate time:</strong>
+    <%= @contest.deactivate_time %>
+  </li>
+
+  <li>
+    <strong>Problems:</strong>
+    <ul>
+      <%= for problem <- @problems do %>
+        <li>
+          <%= link problem.name, to: problem_path(@conn, :show, problem) %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: contest_path(@conn, :edit, @contest) %>
+<%= link "Back", to: contest_path(@conn, :index) %>

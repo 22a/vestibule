@@ -1,0 +1,59 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name, class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :description, class: "control-label" %>
+    <%= text_input f, :description, class: "form-control" %>
+    <%= error_tag f, :description %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :activate_time, class: "control-label" %>
+    <%= datetime_select f, :activate_time, class: "form-control" %>
+    <%= error_tag f, :activate_time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :start_time, class: "control-label" %>
+    <%= datetime_select f, :start_time, class: "form-control" %>
+    <%= error_tag f, :start_time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :freeze_time, class: "control-label" %>
+    <%= datetime_select f, :freeze_time, class: "form-control" %>
+    <%= error_tag f, :freeze_time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :end_time, class: "control-label" %>
+    <%= datetime_select f, :end_time, class: "form-control" %>
+    <%= error_tag f, :end_time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :thaw_time, class: "control-label" %>
+    <%= datetime_select f, :thaw_time, class: "form-control" %>
+    <%= error_tag f, :thaw_time %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :deactivate_time, class: "control-label" %>
+    <%= datetime_select f, :deactivate_time, class: "form-control" %>
+    <%= error_tag f, :deactivate_time %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
