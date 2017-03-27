@@ -19,3 +19,9 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+//
+document.addEventListener("DOMContentLoaded", event => {
+  $('.signout-link')[0].addEventListener('click', (e) => {
+    document.getElementsByTagName('form')[0].submit();
+  });
+});
