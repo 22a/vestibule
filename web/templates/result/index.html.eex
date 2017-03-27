@@ -1,0 +1,30 @@
+<h2>Listing results</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Pass</th>
+      <th>Output</th>
+      <th>Attempt</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for result <- @results do %>
+    <tr>
+      <td><%= result.pass %></td>
+      <td><%= result.output %></td>
+      <td><%= result.attempt_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: result_path(@conn, :show, result), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: result_path(@conn, :edit, result), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: result_path(@conn, :delete, result), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New result", to: result_path(@conn, :new) %>

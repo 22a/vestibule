@@ -7,6 +7,7 @@ defmodule Vestibule.User do
     field :email, :string
     field :is_admin, :boolean
     belongs_to :team, Vestibule.Team
+    has_many :attempts, Vestibule.Attempt, on_delete: :delete_all
     coherence_schema
 
     timestamps

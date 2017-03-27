@@ -1,0 +1,23 @@
+<h2>Show result</h2>
+
+<ul>
+
+  <li>
+    <strong>Pass:</strong>
+    <%= @result.pass %>
+  </li>
+
+  <li>
+    <strong>Output:</strong>
+    <%= @result.output %>
+  </li>
+
+  <li>
+    <strong>Attempt:</strong>
+    <%= @result.attempt_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: result_path(@conn, :edit, @result) %>
+<%= link "Back", to: result_path(@conn, :index) %>

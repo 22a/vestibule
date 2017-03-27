@@ -38,17 +38,17 @@ defmodule Vestibule.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    # resources "/contests", ContestController, only: [:index, :show]
-    # resources "/problems", ProblemController, only: [:index, :show]
-    # resources "/teams", TeamController, only: [:index, :show]
   end
 
   scope "/", Vestibule do
     pipe_through :protected
 
+    resources "/teams", TeamController
     resources "/contests", ContestController
     resources "/problems", ProblemController
-    resources "/teams", TeamController
+    resources "/attempts", AttemptController
+    resources "/results", ResultController
+    resources "/scores", ScoreController
   end
 
   if Mix.env == :dev do
@@ -58,9 +58,4 @@ defmodule Vestibule.Router do
       forward "/mailbox", Plug.Swoosh.MailboxPreview, [base_path: "/dev/mailbox"]
     end
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Vestibule do
-  #   pipe_through :api
-  # end
 end

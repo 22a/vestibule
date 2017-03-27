@@ -1,0 +1,33 @@
+<h2>Show attempt</h2>
+
+<ul>
+
+  <li>
+    <strong>Team:</strong>
+    <%= @attempt.team_id %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @attempt.user_id %>
+  </li>
+
+  <li>
+    <strong>Problem:</strong>
+    <%= @attempt.problem_id %>
+  </li>
+
+  <li>
+    <strong>Language:</strong>
+    <%= @attempt.language %>
+  </li>
+
+  <li>
+    <strong>Code:</strong>
+    <%= @attempt.code %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: attempt_path(@conn, :edit, @attempt) %>
+<%= link "Back", to: attempt_path(@conn, :index) %>

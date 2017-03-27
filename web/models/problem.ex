@@ -11,6 +11,7 @@ defmodule Vestibule.Problem do
     field :output_limit, :integer
     field :filesize_limit, :integer
     belongs_to :contest, Vestibule.Contest
+    has_many :attempts, Vestibule.Attempt, on_delete: :delete_all
 
     timestamps()
   end

@@ -5,6 +5,7 @@ defmodule Vestibule.Team do
     field :name, :string
     field :affiliation, :string
     has_many :users, Vestibule.User, on_delete: :delete_all
+    has_many :attempts, Vestibule.Attempt, on_delete: :delete_all
 
     timestamps()
   end
