@@ -24,7 +24,7 @@ defmodule Vestibule.Repo.Migrations.CreateCoherenceUser do
       add :confirmation_token, :string
       add :confirmed_at, :datetime
       add :confirmation_sent_at, :datetime
-      
+
       timestamps()
     end
     create unique_index(:users, [:email])

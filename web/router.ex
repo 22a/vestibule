@@ -38,14 +38,17 @@ defmodule Vestibule.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/contests", ContestController
-    resources "/problems", ProblemController
+    # resources "/contests", ContestController, only: [:index, :show]
+    # resources "/problems", ProblemController, only: [:index, :show]
+    # resources "/teams", TeamController, only: [:index, :show]
   end
 
   scope "/", Vestibule do
     pipe_through :protected
 
-    # resources "/privates", Vestibule.PrivateController
+    resources "/contests", ContestController
+    resources "/problems", ProblemController
+    resources "/teams", TeamController
   end
 
   if Mix.env == :dev do

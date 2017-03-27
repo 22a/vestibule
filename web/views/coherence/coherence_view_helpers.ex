@@ -169,6 +169,14 @@ defmodule Vestibule.Coherence.ViewHelpers do
     end
   end
 
+  def profile_link(conn, current_user, text) do
+    if Config.user_schema.registerable? do
+      link text, to: coherence_path(@helpers, :registration_path, conn, :show)
+    else
+      current_user.name
+    end
+  end
+
   defp profile_link(current_user, conn) do
     if Config.user_schema.registerable? do
       link current_user.name, to: coherence_path(@helpers, :registration_path, conn, :show)
