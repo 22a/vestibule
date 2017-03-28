@@ -24,7 +24,9 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-              <span class="bigger-emoji-pls">🚪</span>
+              <img alt="Vestibule" src="/images/door.png" class="vestibule-logo">
+            </a>
+            <a class="navbar-brand" href="/">
               Vestibule
             </a>
           </div>

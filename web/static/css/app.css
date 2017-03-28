@@ -27,6 +27,12 @@
   border-radius: 4px;
   padding: 5px;
 }
+
 .padd {
   padding: 15px;
+}
+
+.vestibule-logo {
+  width: 32px;
+  margin-top: -6px;
 }

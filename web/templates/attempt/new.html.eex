@@ -1,7 +1,15 @@
-<h2>New attempt</h2>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">New Attempt</h3>
+  </div>
+  <div class="panel-body">
+    <%= render "form.html", changeset: @changeset, languages: @languages,
+    problems: @problems, action: attempt_path(@conn, :create) %>
 
-<%= render "form.html", changeset: @changeset,
-problems: @problems,
-action: attempt_path(@conn, :create) %>
-
-<%= link "Back", to: attempt_path(@conn, :index) %>
+    <div class="center">
+      <%= link to: contest_path(@conn, :index), class: "btn btn-danger" do %>
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+      <% end %>
+    </div>
+  </div>
+</div>
