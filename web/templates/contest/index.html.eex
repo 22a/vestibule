@@ -1,40 +1,52 @@
-<h2>Listing contests</h2>
+<%= if Vestibule.Authorisation.admin?(@conn) do %>
+  <h2>Contests</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Activate time</th>
+        <th>Start time</th>
+        <th>Freeze time</th>
+        <th>End time</th>
+        <th>Thaw time</th>
+        <th>Deactivate time</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for contest <- @contests do %>
+        <tr>
+          <td><%= contest.name %></td>
+          <td><%= contest.description %></td>
+          <td><%= contest.activate_time %></td>
+          <td><%= contest.start_time %></td>
+          <td><%= contest.freeze_time %></td>
+          <td><%= contest.end_time %></td>
+          <td><%= contest.thaw_time %></td>
+          <td><%= contest.deactivate_time %></td>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Activate time</th>
-      <th>Start time</th>
-      <th>Freeze time</th>
-      <th>End time</th>
-      <th>Thaw time</th>
-      <th>Deactivate time</th>
+          <td class="text-right">
+            <%= link "View", to: contest_path(@conn, :show, contest), class: "btn btn-default btn-xs" %>
+            <%= link "Edit", to: contest_path(@conn, :edit, contest), class: "btn btn-default btn-xs" %>
+            <%= link "Delete", to: contest_path(@conn, :delete, contest), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link "New contest", to: contest_path(@conn, :new) %>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for contest <- @contests do %>
-    <tr>
-      <td><%= contest.name %></td>
-      <td><%= contest.description %></td>
-      <td><%= contest.activate_time %></td>
-      <td><%= contest.start_time %></td>
-      <td><%= contest.freeze_time %></td>
-      <td><%= contest.end_time %></td>
-      <td><%= contest.thaw_time %></td>
-      <td><%= contest.deactivate_time %></td>
+  <%= else %>
 
-      <td class="text-right">
-        <%= link "Show", to: contest_path(@conn, :show, contest), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: contest_path(@conn, :edit, contest), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: contest_path(@conn, :delete, contest), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+  <h2>Contests</h2>
+  <%= for contest <- @contests do %>
+    <%= if contest.active do %>
+      <%= link to: contest_path(@conn, :show, contest) do %>
+        <h3><%= contest.name %></h3> <%= contest.description %>
+      <% end %>
+    <% end %>
+  <% end %>
+
 <% end %>
-  </tbody>
-</table>
 
-<%= link "New contest", to: contest_path(@conn, :new) %>

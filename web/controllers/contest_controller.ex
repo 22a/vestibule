@@ -2,9 +2,14 @@ defmodule Vestibule.ContestController do
   use Vestibule.Web, :controller
 
   alias Vestibule.Contest
+  import Vestibule.Authorisation
+
+  plug :authorize when not action in [:index, :show]
 
   def index(conn, _params) do
     contests = Repo.all(Contest)
+               |> Enum.map(fn(contest)->Map.put(contest, :active, active?(contest))end)
+    IO.inspect contests
     render(conn, "index.html", contests: contests)
   end
 
@@ -62,5 +67,12 @@ defmodule Vestibule.ContestController do
     conn
     |> put_flash(:info, "Contest deleted successfully.")
     |> redirect(to: contest_path(conn, :index))
+  end
+
+  defp active?(contest) do
+    now = Ecto.DateTime.utc
+
+    :gt != Ecto.DateTime.compare(contest.activate_time,now) and
+    :lt != Ecto.DateTime.compare(contest.deactivate_time,now)
   end
 end

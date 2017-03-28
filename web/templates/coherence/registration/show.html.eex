@@ -16,7 +16,19 @@
     <%= @user.email %>
   </li>
 
+  <%= if @user.team_id do %>
+    <li>
+      <strong>Team:</strong>
+      <%= link(@user.team_id, to: team_path(@conn, :show, @user.team_id)) %>
+    </li>
+    <%= else %>
+    <li>
+      You aren't on a team yet,
+      <%= link("make one", to: team_path(@conn, :new)) %>
+    </li>
+  <% end %>
+
 </ul>
 
 <%= link "Edit", to: registration_path(@conn, :edit) %> |
-<%= link "Delete", to: registration_path(@conn, :delete), method: :delete, data: [confirm: "Are you sure?"] %>
+<%= link "Delete", to: registration_path(@conn, :delete), method: :delete, data: [confirm: "Are you sure you want to delete your account?"] %>
