@@ -61,7 +61,7 @@
 
   <div class="form-group center">
     <%= submit class: "btn btn-success btn-lg" do %>
-      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit Problem
+      <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Submit Problem
     <% end %>
   </div>
 <% end %>

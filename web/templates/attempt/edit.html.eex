@@ -1,6 +1,7 @@
 <h2>Edit attempt</h2>
 
 <%= render "form.html", changeset: @changeset,
+problems: @problems,
                         action: attempt_path(@conn, :update, @attempt) %>
 
 <%= link "Back", to: attempt_path(@conn, :index) %>

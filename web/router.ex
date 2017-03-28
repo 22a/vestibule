@@ -45,7 +45,9 @@ defmodule Vestibule.Router do
 
     resources "/teams", TeamController
     resources "/contests", ContestController
-    resources "/problems", ProblemController
+    resources "/problems", ProblemController do
+      get "/attempt", AttemptController, :new
+    end
     resources "/attempts", AttemptController
     resources "/results", ResultController
     resources "/scores", ScoreController

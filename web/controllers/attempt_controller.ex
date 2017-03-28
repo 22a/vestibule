@@ -8,9 +8,15 @@ defmodule Vestibule.AttemptController do
     render(conn, "index.html", attempts: attempts)
   end
 
-  def new(conn, _params) do
-    changeset = Attempt.changeset(%Attempt{})
-    render(conn, "new.html", changeset: changeset)
+  def new(conn, params) do
+    changeset = case params do
+      %{"problem_id" => problem_id } ->
+        Attempt.changeset(%Attempt{problem_id: problem_id})
+      _ ->
+        Attempt.changeset(%Attempt{})
+    end
+    problems = Repo.all(Vestibule.Problem) |> Enum.map(&{&1.name, &1.id})
+    render(conn, "new.html", changeset: changeset, problems: problems)
   end
 
   def create(conn, %{"attempt" => attempt_params}) do
@@ -34,7 +40,8 @@ defmodule Vestibule.AttemptController do
   def edit(conn, %{"id" => id}) do
     attempt = Repo.get!(Attempt, id)
     changeset = Attempt.changeset(attempt)
-    render(conn, "edit.html", attempt: attempt, changeset: changeset)
+    problems = Repo.all(Vestibule.Problem) |> Enum.map(&{&1.name, &1.id})
+    render(conn, "edit.html", attempt: attempt, changeset: changeset, problems: problems)
   end
 
   def update(conn, %{"id" => id, "attempt" => attempt_params}) do

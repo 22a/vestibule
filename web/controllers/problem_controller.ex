@@ -2,6 +2,9 @@ defmodule Vestibule.ProblemController do
   use Vestibule.Web, :controller
 
   alias Vestibule.Problem
+  import Vestibule.Authorisation
+
+  plug :authorize when not action in [:index, :show]
 
   def index(conn, _params) do
     problems = Repo.all(Problem)

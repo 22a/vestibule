@@ -17,7 +17,7 @@ defmodule Vestibule.Attempt do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:language, :code])
-    |> validate_required([:language, :code])
+    |> cast(params, [:language, :code, :problem_id, :user_id, :team_id])
+    |> validate_required([:language, :code, :problem_id])
   end
 end

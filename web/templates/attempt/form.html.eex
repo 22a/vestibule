@@ -6,6 +6,12 @@
   <% end %>
 
   <div class="form-group">
+    <%= label f, :problem_id, class: "control-label" %>
+    <%= select f, :problem_id, @problems, class: "form-control", required: true %>
+    <%= error_tag f, :problem_id %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :language, class: "control-label" %>
     <%= text_input f, :language, class: "form-control" %>
     <%= error_tag f, :language %>

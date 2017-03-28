@@ -36,6 +36,9 @@
               <li>
                 <%= link("Problems", to: problem_path(@conn, :index)) %>
               </li>
+              <li>
+                <%= link("Attempts", to: attempt_path(@conn, :index)) %>
+              </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <%= if Coherence.current_user(@conn) do %>

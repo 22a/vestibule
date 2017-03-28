@@ -55,7 +55,7 @@
 
   <div class="form-group center">
     <%= submit class: "btn btn-success btn-lg" do %>
-      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Submit Contest
+      <span class="glyphicon glyphicon-send" aria-hidden="true"></span> Submit Contest
     <% end %>
   </div>
 <% end %>
