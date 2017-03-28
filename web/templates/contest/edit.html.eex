@@ -1,6 +1,16 @@
-<h2>Edit contest</h2>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Edit Contest</h3>
+  </div>
+  <div class="panel-body">
+    <%= render "form.html", changeset: @changeset,
+      action: contest_path(@conn, :update, @contest) %>
 
-<%= render "form.html", changeset: @changeset,
-                        action: contest_path(@conn, :update, @contest) %>
+      <div class="center">
+        <%= link to: contest_path(@conn, :index), class: "btn btn-danger" do %>
+          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+        <% end %>
+      </div>
+  </div>
+</div>
 
-<%= link "Back", to: contest_path(@conn, :index) %>

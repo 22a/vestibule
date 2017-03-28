@@ -1,52 +1,77 @@
 <%= if Vestibule.Authorisation.admin?(@conn) do %>
-  <h2>Contests</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Activate time</th>
-        <th>Start time</th>
-        <th>Freeze time</th>
-        <th>End time</th>
-        <th>Thaw time</th>
-        <th>Deactivate time</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= for contest <- @contests do %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Contests
+    </div>
+
+    <table class="table">
+      <thead>
         <tr>
-          <td><%= contest.name %></td>
-          <td><%= contest.description %></td>
-          <td><%= contest.activate_time %></td>
-          <td><%= contest.start_time %></td>
-          <td><%= contest.freeze_time %></td>
-          <td><%= contest.end_time %></td>
-          <td><%= contest.thaw_time %></td>
-          <td><%= contest.deactivate_time %></td>
-
-          <td class="text-right">
-            <%= link "View", to: contest_path(@conn, :show, contest), class: "btn btn-default btn-xs" %>
-            <%= link "Edit", to: contest_path(@conn, :edit, contest), class: "btn btn-default btn-xs" %>
-            <%= link "Delete", to: contest_path(@conn, :delete, contest), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-          </td>
+          <th>Name</th>
+          <th>Description</th>
+          <%# <th>Activate time</th> %>
+          <%# <th>Start time</th> %>
+          <%# <th>Freeze time</th> %>
+          <%# <th>End time</th> %>
+          <%# <th>Thaw time</th> %>
+          <%# <th>Deactivate time</th> %>
+          <th>Active?</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link "New contest", to: contest_path(@conn, :new) %>
+      </thead>
+      <tbody>
+        <%= for contest <- @contests do %>
+          <tr>
+            <td><%= contest.name %></td>
+            <td><%= contest.description %></td>
+            <%# <td><%= contest.activate_time %1></td> %>
+            <%# <td><%= contest.start_time %1></td> %>
+            <%# <td><%= contest.freeze_time %1></td> %>
+            <%# <td><%= contest.end_time %1></td> %>
+            <%# <td><%= contest.thaw_time %1></td> %>
+            <%# <td><%= contest.deactivate_time %1></td> %>
+            <td>
+              <%= if contest.active do %>
+                ✅
+              <%= else %>
+                ❌
+              <% end %>
+            </td>
 
-  <%= else %>
-
-  <h2>Contests</h2>
-  <%= for contest <- @contests do %>
-    <%= if contest.active do %>
-      <%= link to: contest_path(@conn, :show, contest) do %>
-        <h3><%= contest.name %></h3> <%= contest.description %>
-      <% end %>
+            <td class="text-right">
+              <%= link "View", to: contest_path(@conn, :show, contest), class: "btn btn-default btn-sm" %>
+              <%= link "Edit", to: contest_path(@conn, :edit, contest), class: "btn btn-info btn-sm" %>
+              <%= link "Delete", to: contest_path(@conn, :delete, contest), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="center">
+    <%= link to: contest_path(@conn, :new), class: "btn btn-success btn-lg" do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Contest
     <% end %>
-  <% end %>
-
+  </div>
+<%= else %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      Active Contests
+    </div>
+    <div class="list-group">
+      <%= for contest <- @contests do %>
+        <%= if contest.active do %>
+          <%= link to: contest_path(@conn, :show, contest), class: "list-group-item" do %>
+            <h4 class="list-group-item-heading">
+              <%= contest.name %>
+            </h4>
+            <p class="list-group-item-text">
+              <%= contest.description %>
+            </p>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
 
