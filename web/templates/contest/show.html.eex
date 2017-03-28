@@ -30,32 +30,19 @@
       <%= @contest.thaw_time %>
     </li>
     <li class="list-group-item">
-      <strong>Problems:</strong>
-
-
-      <%# going to try this instead of making my own view here %>
       <%= render Vestibule.ProblemView, "index.html", conn: @conn, problems: @problems %>
-
-      <%# <ul class="list-group"> %>
-      <%#   <%= for problem <- @problems do %1> %>
-      <%#     <li class="list-group-item"> %>
-      <%#       <%= link problem.name, to: problem_path(@conn, :show, problem) %1> %>
-      <%#     </li> %>
-      <%#   <% end %1> %>
-      <%# </ul> %>
     </li>
   </ul>
 </div>
 
 <%= if Vestibule.Authorisation.admin?(@conn) do %>
-  <%# <%= link "Edit", to: contest_path(@conn, :edit, @contest) %1> %>
   <div class="center">
     <%= link to: contest_path(@conn, :edit, @contest), class: "btn btn-info" do %>
       <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit Contest
     <% end %>
   </div>
 <% end %>
-<%# <%= link "Back", to: contest_path(@conn, :index) %1> %>
+
 <div class="center">
   <%= link to: contest_path(@conn, :index), class: "btn btn-danger" do %>
     <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back

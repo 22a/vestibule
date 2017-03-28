@@ -1,7 +1,16 @@
-<h2>Edit problem</h2>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Edit Problem</h3>
+  </div>
+  <div class="panel-body">
+    <%= render "form.html", changeset: @changeset,
+      action: problem_path(@conn, :update, @problem),
+      contests: @contests %>
 
-<%= render "form.html", changeset: @changeset,
-                        action: problem_path(@conn, :update, @problem),
-                        contests: @contests %>
-
-<%= link "Back", to: problem_path(@conn, :index) %>
+    <div class="center">
+      <%= link to: problem_path(@conn, :index), class: "btn btn-danger" do %>
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+      <% end %>
+    </div>
+  </div>
+</div>

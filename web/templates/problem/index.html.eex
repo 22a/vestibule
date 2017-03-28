@@ -1,42 +1,53 @@
-<h2>Listing problems</h2>
+<%= if Vestibule.Authorisation.admin?(@conn) do %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Problems
+    </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Test input</th>
-      <th>Expected output</th>
-      <th>Time limit</th>
-      <th>Memory limit</th>
-      <th>Output limit</th>
-      <th>Filesize limit</th>
-      <th>Contest</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for problem <- @problems do %>
-    <tr>
-      <td><%= problem.name %></td>
-      <td><%= problem.description %></td>
-      <td><%= problem.test_input %></td>
-      <td><%= problem.expected_output %></td>
-      <td><%= problem.time_limit %></td>
-      <td><%= problem.memory_limit %></td>
-      <td><%= problem.output_limit %></td>
-      <td><%= problem.filesize_limit %></td>
-      <td><%= link(problem.contest_id, to: contest_path(@conn, :show, problem.contest_id)) %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: problem_path(@conn, :show, problem), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: problem_path(@conn, :edit, problem), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: problem_path(@conn, :delete, problem), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for problem <- @problems do %>
+          <tr>
+            <td><%= problem.name %></td>
+            <td><%= problem.description %></td>
+            <td class="text-right">
+              <%= link "View", to: problem_path(@conn, :show, problem), class: "btn btn-default btn-sm" %>
+              <%= link "Edit", to: problem_path(@conn, :edit, problem), class: "btn btn-info btn-sm" %>
+              <%= link "Delete", to: problem_path(@conn, :delete, problem), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="center">
+    <%= link to: problem_path(@conn, :new), class: "btn btn-success btn-lg" do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Problem
+    <% end %>
+  </div>
+<%= else %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      Problems
+    </div>
+    <div class="list-group">
+      <%= for problem <- @problems do %>
+        <%= link to: problem_path(@conn, :show, problem), class: "list-group-item" do %>
+          <h4 class="list-group-item-heading">
+            <%= problem.name %>
+          </h4>
+          <p class="list-group-item-text">
+            <%= problem.description %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
-  </tbody>
-</table>
-
-<%= link "New problem", to: problem_path(@conn, :new) %>
