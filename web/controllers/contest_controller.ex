@@ -9,7 +9,6 @@ defmodule Vestibule.ContestController do
   def index(conn, _params) do
     contests = Repo.all(Contest)
                |> Enum.map(fn(contest)->Map.put(contest, :active, active?(contest))end)
-    IO.inspect contests
     render(conn, "index.html", contests: contests)
   end
 

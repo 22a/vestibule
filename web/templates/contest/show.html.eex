@@ -1,59 +1,63 @@
-<h2>Show contest</h2>
+<div class="panel panel-info">
+  <div class="panel-heading"><%= @contest.name %></div>
+  <div class="panel-body">
+    <p>
+      <%= @contest.description %>
+    </p>
+  </div>
 
-<ul>
+  <ul class="list-group">
+    <%= if Vestibule.Authorisation.admin?(@conn) do %>
+      <li class="list-group-item">
+        <strong>Activate time:</strong>
+        <%= @contest.activate_time %>
+      </li>
+      <li class="list-group-item">
+        <strong>Deactivate time:</strong>
+        <%= @contest.deactivate_time %>
+      </li>
+    <% end %>
+    <li class="list-group-item">
+      <strong>Start time:</strong>
+      <%= @contest.start_time %>
+    </li>
+    <li class="list-group-item">
+      <strong>End time:</strong>
+      <%= @contest.end_time %>
+    </li>
+    <li class="list-group-item">
+      <strong>Thaw time:</strong>
+      <%= @contest.thaw_time %>
+    </li>
+    <li class="list-group-item">
+      <strong>Problems:</strong>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @contest.name %>
-  </li>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @contest.description %>
-  </li>
+      <%# going to try this instead of making my own view here %>
+      <%= render Vestibule.ProblemView, "index.html", conn: @conn, problems: @problems %>
 
-  <li>
-    <strong>Activate time:</strong>
-    <%= @contest.activate_time %>
-  </li>
+      <%# <ul class="list-group"> %>
+      <%#   <%= for problem <- @problems do %1> %>
+      <%#     <li class="list-group-item"> %>
+      <%#       <%= link problem.name, to: problem_path(@conn, :show, problem) %1> %>
+      <%#     </li> %>
+      <%#   <% end %1> %>
+      <%# </ul> %>
+    </li>
+  </ul>
+</div>
 
-  <li>
-    <strong>Start time:</strong>
-    <%= @contest.start_time %>
-  </li>
-
-  <li>
-    <strong>Freeze time:</strong>
-    <%= @contest.freeze_time %>
-  </li>
-
-  <li>
-    <strong>End time:</strong>
-    <%= @contest.end_time %>
-  </li>
-
-  <li>
-    <strong>Thaw time:</strong>
-    <%= @contest.thaw_time %>
-  </li>
-
-  <li>
-    <strong>Deactivate time:</strong>
-    <%= @contest.deactivate_time %>
-  </li>
-
-  <li>
-    <strong>Problems:</strong>
-    <ul>
-      <%= for problem <- @problems do %>
-        <li>
-          <%= link problem.name, to: problem_path(@conn, :show, problem) %>
-        </li>
-      <% end %>
-    </ul>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: contest_path(@conn, :edit, @contest) %>
-<%= link "Back", to: contest_path(@conn, :index) %>
+<%= if Vestibule.Authorisation.admin?(@conn) do %>
+  <%# <%= link "Edit", to: contest_path(@conn, :edit, @contest) %1> %>
+  <div class="center">
+    <%= link to: contest_path(@conn, :edit, @contest), class: "btn btn-info" do %>
+      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit Contest
+    <% end %>
+  </div>
+<% end %>
+<%# <%= link "Back", to: contest_path(@conn, :index) %1> %>
+<div class="center">
+  <%= link to: contest_path(@conn, :index), class: "btn btn-danger" do %>
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+  <% end %>
+</div>
