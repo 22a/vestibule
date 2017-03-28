@@ -10,11 +10,11 @@ defmodule Vestibule.AttemptController do
 
   def index(conn, _params) do
     if admin?(conn) do
-      attempts = Repo.all(Attempt)
+      attempts = Repo.all(Attempt, preload: :result)
       render(conn, "index.html", attempts: attempts)
     else
       current_user_id = Coherence.current_user(conn).id
-      user_attempts = Repo.all(from a in Attempt, where: a.user_id == ^current_user_id)
+      user_attempts = Repo.all(from a in Attempt, where: a.user_id == ^current_user_id, preload: :result)
       render(conn, "index.html", attempts: user_attempts)
     end
   end
@@ -55,7 +55,7 @@ defmodule Vestibule.AttemptController do
   end
 
   def show(conn, %{"id" => id}) do
-    attempt = Repo.get!(Attempt, id)
+    attempt = Repo.get!(Attempt, id, preload: :result)
     current_user_id = Coherence.current_user(conn).id
     current_user_is_admin = admin?(conn)
 

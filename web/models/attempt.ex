@@ -7,7 +7,7 @@ defmodule Vestibule.Attempt do
     belongs_to :team, Vestibule.Team
     belongs_to :user, Vestibule.User
     belongs_to :problem, Vestibule.Problem
-    has_many :results, Vestibule.Result, on_delete: :delete_all
+    has_one :result, Vestibule.Result, on_delete: :delete_all
 
     timestamps()
   end

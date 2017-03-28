@@ -1,34 +1,78 @@
-<h2>Listing attempts</h2>
+<%= if Vestibule.Authorisation.admin?(@conn) do %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      All Attempts
+    </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Team</th>
-      <th>User</th>
-      <th>Problem</th>
-      <th>Language</th>
-      <th>Code</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for attempt <- @attempts do %>
-    <tr>
-      <td><%= attempt.team_id %></td>
-      <td><%= attempt.user_id %></td>
-      <td><%= attempt.problem_id %></td>
-      <td><%= attempt.language %></td>
-      <td><%= attempt.code %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: attempt_path(@conn, :show, attempt), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: attempt_path(@conn, :edit, attempt), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: attempt_path(@conn, :delete, attempt), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>User</th>
+          <th>Problem</th>
+          <th>Language</th>
+          <th>Code</th>
+          <th>Result</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for attempt <- @attempts do %>
+          <tr>
+            <td><%= link attempt.team_id, to: team_path(@conn, :show, attempt.team_id) %></td>
+            <td><%= attempt.user_id %></td>
+            <td><%= link attempt.problem_id, to: problem_path(@conn, :show, attempt.problem_id) %></td>
+            <td><%= attempt.language %></td>
+            <td><%= attempt.code %></td>
+            <%= if attempt.result  do %>
+              <%# TODO: fix this non loaded association %>
+              <%# <td><%= link "Result", to: result_path(@conn, :show, attempt.result), class: "btn btn-default btn-sm" %1></td> %>
+            <% else %>
+              <td>No result</td>
+            <% end %>
+            <td class="text-right">
+              <%= link "View", to: attempt_path(@conn, :show, attempt), class: "btn btn-default btn-sm" %>
+              <%= link "Edit", to: attempt_path(@conn, :edit, attempt), class: "btn btn-info btn-sm" %>
+              <%= link "Delete", to: attempt_path(@conn, :delete, attempt), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<%= else %>
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      Your Attempts
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Problem</th>
+          <th>Language</th>
+          <th>Code</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for attempt <- @attempts do %>
+          <tr>
+            <td><%= link attempt.problem_id, to: attempt_path(@conn, :show, attempt)%></td>
+            <td><%= attempt.language %></td>
+            <td><%= attempt.code %></td>
+            <%= if attempt.result  do %>
+              <td><%= link "Result", to: result_path(@conn, :show, attempt.result), class: "btn btn-default btn-sm" %></td>
+            <% else %>
+              <td>No result</td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
-  </tbody>
-</table>
-
-<%= link "New attempt", to: attempt_path(@conn, :new) %>
+<div class="center">
+  <%= link to: attempt_path(@conn, :new), class: "btn btn-success btn-lg" do %>
+    <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> New Attempt
+  <% end %>
+</div>
