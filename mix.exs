@@ -19,7 +19,7 @@ defmodule Vestibule.Mixfile do
   def application do
     [mod: {Vestibule, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :coherence]]
+                    :phoenix_ecto, :postgrex, :coherence, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,6 +38,7 @@ defmodule Vestibule.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:coherence, "~> 0.3"},
+     {:httpoison, "~> 0.10.0"},
      {:cowboy, "~> 1.0"}]
   end
 

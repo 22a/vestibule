@@ -10,7 +10,7 @@ defmodule Vestibule.User do
     has_many :attempts, Vestibule.Attempt, on_delete: :delete_all
     coherence_schema()
 
-    timestamps
+    timestamps()
   end
 
   def changeset(model, params \\ %{}) do

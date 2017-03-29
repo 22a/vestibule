@@ -120,9 +120,37 @@ defmodule Vestibule.AttemptController do
   end
 
   defp make_attempt(params) do
-    # TODO: talk to caison
-    # compare output to the problem's expected output
+    code = params["code"]
+    language = params["language"]
+    {:ok, %{exit_code: exit_code, output: output}} = caisson_execute(code, language)
+    # TODO: compare output to the problem's expected output
     # will likely need problem info here, mem limits etc
-    {"pass, probably", "this is some output"}
+    {to_string(exit_code), output}
+  end
+
+  # TODO: move this caisson stuff out into its own module
+  @caisson_execution_endpoint "http://127.0.0.1:4001/execute"
+  @default_headers [{"Content-Type", "application/json"}]
+  @default_timeout "1"
+  @default_memory_limit "50"
+
+  defp caisson_execute(code, lang) do
+    payload_json = Poison.encode!(%{
+      payload: code,
+      lang: lang,
+      timelimit: @default_timeout,
+      memlimit: @default_memory_limit})
+
+    case HTTPoison.post(@caisson_execution_endpoint, payload_json, @default_headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        %{"exit_status" => exit_code, "output" => output} = Poison.decode!(body)
+        {:ok, %{ exit_code: exit_code, output: output}}
+
+      {:ok, %HTTPoison.Response{status_code: status_code, body: body}} ->
+        {:error, %{ status: {:caisson_error, status_code}, body: body }}
+
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, %{ status: {:http_error, reason} }}
+    end
   end
 end
