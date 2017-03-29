@@ -14,7 +14,7 @@ defmodule Vestibule.Result do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:pass, :output])
-    |> validate_required([:pass, :output])
+    |> cast(params, [:pass, :output, :attempt_id])
+    |> validate_required([:pass, :output, :attempt_id])
   end
 end

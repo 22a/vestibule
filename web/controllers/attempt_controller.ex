@@ -44,10 +44,10 @@ defmodule Vestibule.AttemptController do
       changeset = Attempt.changeset(%Attempt{}, updated_attempt_params)
 
       case Repo.insert(changeset) do
-        {:ok, _attempt} ->
-          conn
-          |> put_flash(:info, "Attempt created successfully.")
-          |> redirect(to: attempt_path(conn, :index))
+        {:ok, attempt} ->
+          {pass, output} = make_attempt(attempt_params)
+          result = %{"result" => %{"attempt_id" => attempt.id, "pass" => pass, "output" => output}}
+          Vestibule.ResultController.create(conn, result)
         {:error, changeset} ->
           render(conn, "new.html", changeset: changeset)
       end
@@ -117,5 +117,12 @@ defmodule Vestibule.AttemptController do
 
   defp valid_language?(lang) do
     Enum.member?(@languages, lang)
+  end
+
+  defp make_attempt(params) do
+    # TODO: talk to caison
+    # compare output to the problem's expected output
+    # will likely need problem info here, mem limits etc
+    {"pass, probably", "this is some output"}
   end
 end

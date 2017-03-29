@@ -9,7 +9,7 @@
 
     <title>Vestibule</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <link rel="shortcut icon" href="<%= static_path(@conn, "/images/door.png") %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= static_path(@conn, "/images/vestibule_64.png") %>" type="image/x-icon" />
   </head>
 
   <body>
@@ -25,7 +25,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-              <img alt="Vestibule" src="/images/door.png" class="vestibule-logo">
+              <img alt="Vestibule" src="/images/vestibule_512.png" class="vestibule-logo">
             </a>
             <a class="navbar-brand" href="/">
               Vestibule
