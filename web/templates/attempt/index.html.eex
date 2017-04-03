@@ -12,7 +12,6 @@
           <th>Problem</th>
           <th>Language</th>
           <th>Code</th>
-          <th>Result</th>
           <th></th>
         </tr>
       </thead>
@@ -24,14 +23,8 @@
             <td><%= link attempt.problem_id, to: problem_path(@conn, :show, attempt.problem_id) %></td>
             <td><%= attempt.language %></td>
             <td><%= attempt.code %></td>
-            <%= if attempt.result  do %>
-              <%# TODO: fix this non loaded association %>
-              <%# <td><%= link "Result", to: result_path(@conn, :show, attempt.result), class: "btn btn-default btn-sm" %1></td> %>
-            <% else %>
-              <td>No result</td>
-            <% end %>
             <td class="text-right">
-              <%= link "View", to: attempt_path(@conn, :show, attempt), class: "btn btn-default btn-sm" %>
+              <%= link "View", to: result_path(@conn, :show, attempt.result), class: "btn btn-default btn-sm" %>
               <%= link "Edit", to: attempt_path(@conn, :edit, attempt), class: "btn btn-info btn-sm" %>
               <%= link "Delete", to: attempt_path(@conn, :delete, attempt), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-sm" %>
             </td>

@@ -4,13 +4,14 @@ defmodule Vestibule.AttemptController do
   alias Vestibule.Attempt
   import Vestibule.Authorisation
 
-  plug :authorize when not action in [:index, :show, :new, :create]
+  plug :authorize when not action in [:index, :new, :create]
 
   @languages ["python", "c", "bash"]
 
   def index(conn, _params) do
     if admin?(conn) do
-      attempts = Repo.all(Attempt, preload: :result)
+      attempts = Repo.all(Attempt)
+                 |> Repo.preload(:result)
       render(conn, "index.html", attempts: attempts)
     else
       current_user_id = Coherence.current_user(conn).id
@@ -120,12 +121,24 @@ defmodule Vestibule.AttemptController do
   end
 
   defp make_attempt(params) do
+    problem = Repo.get!(Vestibule.Problem, params["problem_id"])
     code = params["code"]
     language = params["language"]
+
     {:ok, %{exit_code: exit_code, output: output}} = caisson_execute(code, language)
-    # TODO: compare output to the problem's expected output
-    # will likely need problem info here, mem limits etc
-    {to_string(exit_code), output}
+
+    pass_string = to_string compare_output(problem.expected_output, output)
+
+    {pass_string, output}
+  end
+
+  defp compare_output(expected_output, output) do
+    IO.inspect(String.myers_difference(expected_output, output))
+    stripped_expected_output = expected_output
+                               |> String.replace("\n","")
+    stripped_output = output
+                      |> String.replace("\n","")
+    stripped_expected_output == stripped_output
   end
 
   # TODO: move this caisson stuff out into its own module

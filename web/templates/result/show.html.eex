@@ -1,23 +1,46 @@
-<h2>Show result</h2>
+<%= if @result.pass == "true" do %>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h4>
+      Your attempt was correct!
+    </h4>
+  </div>
+  <div class="panel-body">
+    <h2>
+    Nice one!
+    </h2>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <strong>Problem:</strong>
+      <%= link "View Problem", to: problem_path(@conn, :show, @result.attempt.problem_id), class: "btn btn-default"%>
+    </li>
+  </ul>
+</div>
+<% else %>
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <h4>
+      Your attempt was incorrect.
+    </h4>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <strong>Problem:</strong>
+      <%= link "View Problem", to: problem_path(@conn, :show, @result.attempt.problem_id), class: "btn btn-default"%>
+    </li>
+    <li class="list-group-item">
+      <div>
+        <strong>Output:</strong>
+      </div>
+      <code class="output"><%= @result.output %></code>
+    </li>
+  </ul>
+</div>
+<% end %>
 
-<ul>
-
-  <li>
-    <strong>Pass:</strong>
-    <%= @result.pass %>
-  </li>
-
-  <li>
-    <strong>Output:</strong>
-    <%= @result.output %>
-  </li>
-
-  <li>
-    <strong>Attempt:</strong>
-    <%= @result.attempt_id %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: result_path(@conn, :edit, @result) %>
-<%= link "Back", to: result_path(@conn, :index) %>
+<div class="center">
+  <%= link to: contest_path(@conn, :index), class: "btn btn-danger" do %>
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+  <% end %>
+</div>

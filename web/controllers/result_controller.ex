@@ -17,10 +17,10 @@ defmodule Vestibule.ResultController do
     changeset = Result.changeset(%Result{}, result_params)
 
     case Repo.insert(changeset) do
-      {:ok, _result} ->
+      {:ok, result} ->
         conn
-        |> put_flash(:info, "Result created successfully.")
-        |> redirect(to: result_path(conn, :index))
+        # |> put_flash(:info, "Result created successfully.")
+        |> redirect(to: result_path(conn, :show, result))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -28,6 +28,7 @@ defmodule Vestibule.ResultController do
 
   def show(conn, %{"id" => id}) do
     result = Repo.get!(Result, id)
+             |> Repo.preload(:attempt)
     render(conn, "show.html", result: result)
   end
 

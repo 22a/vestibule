@@ -36,3 +36,7 @@
   width: 32px;
   margin-top: -6px;
 }
+
+.output {
+  white-space: pre-wrap;
+}
